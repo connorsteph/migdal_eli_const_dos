@@ -11,11 +11,11 @@ from matplotlib import pyplot as plt
 from scipy.optimize import brentq
 import tc_func as tf
 from zeta_solver import zeta_solver
-#
-#
-#def A(zeta_m, D):
-#    return 2/np.pi*np.arctan(D/2/zeta_m)
-#
+
+
+def A(zeta_m, D):
+    return 2/np.pi*np.arctan(D/2/zeta_m)
+
 
 def tc_root_eqn(
         t, g, w_e, D, phi, dom_lim,
@@ -37,27 +37,24 @@ def integrand(e, zeta_n,):
     return (1/np.pi)/(zeta_n**2 + e**2)
 
 
-def init_summand(w_n, w_m, phi, zeta, w_e, t, D):
-    try:
-        return tf.lam_even(w_e, w_m, w_n)*phi(w_n)*quad(
-                integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
-    except TypeError:
-        return tf.lam_even(w_e, w_m, w_n)*phi(
-                tf.matsu_index(w_n, t), t)*quad(
-                integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
+def init_summand(w_n, n, w_m, phi, zeta, w_e, t, D):
 #    try:
-#        return tf.lam_even(w_e, w_m, w_n)*phi(w_n)/zeta(w_n)*A(zeta(w_n), D)
+#        return tf.lam_even(w_e, w_m, w_n)*phi(w_n)*quad(
+#                integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
 #    except TypeError:
-#        return tf.lam_even(w_e, w_m, w_n)*phi(
-#                tf.matsu_index(w_n, t), t)/zeta(w_n)*A(zeta(w_n), D)
+#        return tf.lam_even(w_e, w_m, w_n)*phi(n, t)*quad(
+#                integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
+    try:
+        return tf.lam_even(w_e, w_m, w_n)*phi(w_n)/zeta(w_n)*A(zeta(w_n), D)
+    except TypeError:
+        return tf.lam_even(w_e, w_m, w_n)*phi(n, t)/zeta(w_n)*A(zeta(w_n), D)
 
 
-def summand(w_n, w_m, phi, zeta, w_e, t, D):
-    return tf.lam_even(
-            w_e, w_m, w_n)*phi[tf.matsu_index(w_n, t)-1]*quad(
-        integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
-#    return tf.lam_even(w_e, w_m, w_n)*phi[
-#            tf.matsu_index(w_n, t)-1]/zeta(w_n)*A(zeta(w_n), D)
+def summand(w_n, n, w_m, phi, zeta, w_e, t, D):
+#    return tf.lam_even(
+#            w_e, w_m, w_n)*phi[n-1]*quad(
+#        integrand, -D/2, D/2, args=(zeta(w_n),), limit=100)[0]
+    return tf.lam_even(w_e, w_m, w_n)*phi[n-1]/zeta(w_n)*A(zeta(w_n), D)
 
 
 def phi_solver(g, w_e, dom_lim, D, init_phi, maxiter=100, p_damp=0.3,

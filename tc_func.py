@@ -129,7 +129,7 @@ def matsu_sum(lower, upper, t, f, *args):
     **kwargs, at temperature t
     """
     for n in range(lower, upper+1, 1):
-        ssum += f(np.pi*t*(2*n-1), *args)
+        ssum += f(np.pi*t*(2*n-1), n, *args)
     return ssum
 
 

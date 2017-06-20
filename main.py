@@ -46,9 +46,9 @@ t = 0.1*w_e
 #plt.savefig('tc_plot_lam_%g.pdf' % lam_want, bbox_inches='tight')
 
 
-tc_calc(g, w_e, D,
+tc = tc_calc(g, w_e, D,
         dom_lim, maxiter=maxiter,
-        tol=tol, p_tol=5e-5, t_tol=5e-2, plot=False, iprint=False)
+        tol=tol, p_tol=5e-5, t_tol=5e-2, plot=True, iprint=False)
 
 #num = 100
 #llam = 2*g**2/(D*w_e)

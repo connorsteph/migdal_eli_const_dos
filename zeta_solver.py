@@ -19,19 +19,18 @@ def integrand(e, zeta_m):
         return (1/np.pi)/(zeta_m**2 + e**2)
 
 
-def init_summand(w_n, w_m, w_e, D):
-    return tf.lam_odd(w_e, w_m, w_n)*w_n*itg.quad(
-            integrand, -D/2, D/2, args=(w_n), limit=100)[0]
-#    return tf.lam_odd(w_e, w_m, w_n)*A(w_n, D)
+def init_summand(w_n, n, w_m, w_e, D):
+#    return tf.lam_odd(w_e, w_m, w_n)*w_n*itg.quad(
+#            integrand, -D/2, D/2, args=(w_n), limit=100)[0]
+    return tf.lam_odd(w_e, w_m, w_n)*A(w_n, D)
 
 
-def summand(w_n, w_m, zeta, w_e, t, D):
-    return tf.lam_odd(w_e, w_m, w_n)*zeta[
-                np.int(tf.matsu_index(w_n, t)-1)]*itg.quad(
-        integrand, -D/2, D/2, args=(zeta[
-                np.int(tf.matsu_index(w_n, t)-1)]), limit=100)[0]
-#    return tf.lam_odd(w_e, w_m, w_n)*A(
-#            zeta[np.int(tf.matsu_index(w_n, t)-1)], D)
+def summand(w_n, n, w_m, zeta, w_e, t, D):
+#    return tf.lam_odd(w_e, w_m, w_n)*zeta[
+#                np.int(n-1)]*itg.quad(
+#        integrand, -D/2, D/2, args=(zeta[
+#                np.int(n-1)]), limit=100)[0]
+    return tf.lam_odd(w_e, w_m, w_n)*A(zeta[n-1], D)
 
 
 def zeta_solver(t, g, w_e, dom_lim, D, maxiter=150,

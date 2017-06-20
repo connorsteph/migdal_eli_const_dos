@@ -58,7 +58,7 @@ def tc_calc(g, w_e, D, dom_lim, iprint=False, tol=1e-8, p_damp=0.3,
         plt.ylim([-1, 1])
         plt.xlim([0, tf.freq_m(dom_lim, tc)/w_e])
         plt.xlabel(r'$\frac{\omega_m}{\omega_E}$', fontsize=18)
-        plt.title(r'$\phi$ for $T_c$ = %3.2g $\omega_E$' % (tc/w_e),
+        plt.title(r'$\phi$ for $T_c$ = %5.4g $\omega_E$' % (tc/w_e),
                   fontsize=22)
         plt.savefig('./phi_plots/phi_tc_lam_%g_D_%g_we_%g.pdf'
                     % (llam, D, w_e),
